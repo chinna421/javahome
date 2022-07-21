@@ -9,7 +9,8 @@ phases:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=886346333743.dkr.ecr.us-east-1.amazonaws.com/shekar/container456
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - IMAGE_TAG=build-${COMMIT_HASH:=latest}
+    - REPOSITORY_URI=123456789.dkr.ecr.eu-west-1.amazonaws.com/sample/sampleapp
   build:
     commands:
       - echo Build started on `date`
